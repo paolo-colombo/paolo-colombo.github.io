@@ -1,41 +1,351 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Tuo Nome</title>
-    <style>
-        body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
-        h1 { border-bottom: 2px solid #0066cc; padding-bottom: 10px; }
-        .project-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
-        .btn { display: inline-block; background: #24292e; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-weight: bold; }
-        .btn:hover { background: #555; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paolo Colombo — Portfolio Ingegneria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F2A43;
+    --ink-2:#153E63;
+    --ink-3:#1C4E7A;
+    --line:#5C93B8;
+    --line-dim:#2E5E85;
+    --paper:#EAF3F8;
+    --paper-dim:#9FBBCE;
+    --accent:#F2A93B;
+    --accent-dim:#9A6E27;
+    --hazard:#E2574C;
+    --radius:2px;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --sans:'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--ink), var(--ink)),
+      repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(111,168,201,0.07) 31px, rgba(111,168,201,0.07) 32px),
+      repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(111,168,201,0.07) 31px, rgba(111,168,201,0.07) 32px);
+    color:var(--paper);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:20;
+    background:rgba(15,42,67,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line-dim);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
+  .brand{font-family:var(--mono); font-weight:600; font-size:13px; letter-spacing:0.08em; color:var(--paper);}
+  .brand span{color:var(--accent);}
+  .navlinks{display:flex; gap:22px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase;}
+  .navlinks a{color:var(--paper-dim);}
+  .navlinks a:hover{color:var(--accent);}
+  @media (max-width:640px){ .navlinks{display:none;} }
+
+  /* ---------- HERO / TITLE BLOCK ---------- */
+  header.hero{padding:56px 0 32px;}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--line); margin-bottom:10px;
+  }
+  h1{
+    font-family:var(--mono); font-weight:700; font-size:clamp(32px,6vw,52px);
+    margin:0 0 8px; letter-spacing:-0.01em; color:var(--paper);
+  }
+  .role{font-size:17px; color:var(--paper-dim); max-width:56ch; margin:0 0 32px;}
+
+  .titleblock{
+    border:1px solid var(--line-dim);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .titleblock .cell{
+    padding:12px 16px;
+    border-right:1px solid var(--line-dim);
+    border-bottom:1px solid var(--line-dim);
+  }
+  .titleblock .cell:nth-child(2n){border-right:none;}
+  .titleblock .cell:nth-last-child(-n+2){border-bottom:none;}
+  .titleblock .label{
+    font-family:var(--mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--line); display:block; margin-bottom:4px;
+  }
+  .titleblock .value{font-size:14px; color:var(--paper);}
+  .titleblock .value a{color:var(--paper);}
+  .titleblock .value a:hover{color:var(--accent);}
+
+  /* ---------- SECTION HEADERS (figure-caption style) ---------- */
+  .figcap{
+    display:flex; align-items:center; gap:12px;
+    font-family:var(--mono); font-size:13px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--line); margin:0 0 28px;
+  }
+  .figcap::before, .figcap::after{content:""; flex:1; height:1px; background:var(--line-dim); position:relative;}
+  .figcap::before{margin-right:2px;}
+  .figcap::after{margin-left:2px;}
+
+  section{padding:56px 0;}
+  section + section{border-top:1px solid var(--line-dim);}
+
+  .intro-text{max-width:62ch; color:var(--paper-dim); font-size:15px; margin-bottom:8px;}
+
+  /* ---------- PROJECT CARDS ---------- */
+  .projects{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:20px;}
+  .card{
+    border:1px solid var(--line-dim);
+    background:var(--ink-2);
+    padding:22px;
+    display:flex; flex-direction:column; gap:14px;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .card:hover{border-color:var(--line); transform:translateY(-2px);}
+  .card-status{
+    font-family:var(--mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--accent); align-self:flex-start;
+    border:1px solid var(--accent-dim); padding:3px 8px;
+  }
+  .card h3{margin:0; font-size:17px; font-family:var(--sans); font-weight:600; color:var(--paper);}
+  .card .meta{font-family:var(--mono); font-size:11px; color:var(--paper-dim); letter-spacing:0.03em;}
+  .card p{margin:0; font-size:14px; color:var(--paper-dim);}
+  .tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .tag{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:0.04em;
+    color:var(--line); border:1px solid var(--line-dim); padding:3px 8px;
+  }
+  .card .cta{
+    margin-top:auto; font-family:var(--mono); font-size:12px; letter-spacing:0.04em;
+    display:inline-flex; align-items:center; gap:6px; color:var(--accent);
+  }
+
+  .card.empty{
+    border-style:dashed; align-items:flex-start; justify-content:center; min-height:180px;
+    color:var(--paper-dim);
+  }
+  .card.empty h3{color:var(--paper-dim); font-weight:500;}
+
+  /* ---------- SKILLS ---------- */
+  .skillgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:28px;}
+  .skillgroup .label{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--line); margin-bottom:10px; display:block;
+  }
+  .pill{display:inline-block; font-size:13px; color:var(--paper); background:var(--ink-2);
+    border:1px solid var(--line-dim); padding:5px 11px; margin:0 6px 6px 0;}
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{border-left:1px solid var(--line-dim); margin-left:6px;}
+  .titem{position:relative; padding:0 0 26px 24px;}
+  .titem:last-child{padding-bottom:0;}
+  .titem::before{
+    content:""; position:absolute; left:-5px; top:4px;
+    width:9px; height:9px; background:var(--ink); border:2px solid var(--accent);
+    border-radius:50%;
+  }
+  .titem .period{font-family:var(--mono); font-size:11px; color:var(--line); letter-spacing:0.04em;}
+  .titem h4{margin:4px 0 4px; font-size:15.5px; color:var(--paper); font-weight:600;}
+  .titem p{margin:0; font-size:13.5px; color:var(--paper-dim);}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:flex; flex-wrap:wrap; gap:14px;}
+  .contact-btn{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.03em;
+    border:1px solid var(--line); padding:12px 18px; color:var(--paper);
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .contact-btn:hover{border-color:var(--accent); color:var(--accent); text-decoration:none;}
+  .contact-btn.primary{background:var(--accent); border-color:var(--accent); color:var(--ink); font-weight:600;}
+  .contact-btn.primary:hover{background:#ffbf5c; color:var(--ink);}
+
+  footer{padding:32px 0 56px; font-family:var(--mono); font-size:11px; color:var(--line-dim); letter-spacing:0.05em;}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
 </head>
 <body>
 
-    <h1>Il Tuo Nome</h1>
-    <p><strong>Ingegnere [Tua Specializzazione]</strong></p>
-    <p>Benvenuto nel mio portfolio sintetico. Qui trovi una panoramica dei miei progetti principali. Clicca sui link per vedere il codice sorgente e i dettagli tecnici completi su GitHub.</p>
-
-    <h2>Progetti In Evidenza</h2>
-
-    <div class="project-card">
-        <h3>Progetto 1: Nome Progetto</h3>
-        <p>Breve descrizione di 2 righe sull'obiettivo del progetto e le tecnologie usate (es. Python, MATLAB, IoT).</p>
-        <a href="https://github.com" class="btn">Vedi dettagli su GitHub →</a>
+<nav>
+  <div class="wrap">
+    <div class="brand">P.COLOMBO <span>// PORTFOLIO</span></div>
+    <div class="navlinks">
+      <a href="#progetti">Progetti</a>
+      <a href="#competenze">Competenze</a>
+      <a href="#istruzione">Istruzione</a>
+      <a href="#contatti">Contatti</a>
     </div>
+  </div>
+</nav>
 
-    <div class="project-card">
-        <h3>Progetto 2: Nome Progetto</h3>
-        <p>Breve descrizione dell'hardware o del software sviluppato e dei risultati ottenuti.</p>
-        <a href="https://github.com" class="btn">Vedi dettagli su GitHub →</a>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Ingegneria dell'automazione industriale</div>
+    <h1>Paolo Colombo</h1>
+    <p class="role">Progetti in robotica collaborativa, motion planning e reinforcement learning. Questa pagina raccoglie il lavoro svolto durante tirocini e percorso universitario.</p>
+
+    <div class="titleblock">
+      <div class="cell">
+        <span class="label">Nome</span>
+        <span class="value">Paolo Colombo</span>
+      </div>
+      <div class="cell">
+        <span class="label">Ruolo</span>
+        <span class="value">Studente Ing. Automazione Industriale</span>
+      </div>
+      <div class="cell">
+        <span class="label">Sede</span>
+        <span class="value">Mazzano (Brescia), IT</span>
+      </div>
+      <div class="cell">
+        <span class="label">Contatto</span>
+        <span class="value"><a href="mailto:paolo.colombo555@gmail.com">paolo.colombo555@gmail.com</a></span>
+      </div>
     </div>
+  </div>
+</header>
 
-    <hr>
-    <p>Se vuoi vedere tutti i miei repository, visita il mio profilo principale:</p>
-    <a href="https://github.com" class="btn" style="background: #0066cc;">Profilo GitHub Completo</a>
+<section id="progetti">
+  <div class="wrap">
+    <p class="figcap">Fig. 01 — Progetti</p>
+    <p class="intro-text">Il codice sorgente di alcuni progetti è mantenuto in repository private. Chi è interessato può richiedere l'accesso direttamente dalla scheda del progetto.</p>
+    <br>
+    <div class="projects">
+
+      <div class="card reveal">
+        <span class="card-status">In corso</span>
+        <h3>Motion planning con Reinforcement Learning</h3>
+        <div class="meta">JRL CARI — Giugno 2026 → oggi</div>
+        <p>Applicazione di algoritmi di Reinforcement Learning per il controllo ottimo e il motion planning di sistemi robotici.</p>
+        <div class="tags">
+          <span class="tag">Reinforcement Learning</span>
+          <span class="tag">Robotica</span>
+          <span class="tag">Python</span>
+        </div>
+        <a class="cta" href="mailto:paolo.colombo555@gmail.com?subject=Richiesta%20accesso%20-%20Progetto%20RL%20Motion%20Planning">→ Richiedi accesso al repository</a>
+      </div>
+
+      <div class="card reveal">
+        <span class="card-status">Completato</span>
+        <h3>Controllo del cobot Universal Robots UR3</h3>
+        <div class="meta">Lab. Meccanica Applicata e Robotica Industriale — 2024</div>
+        <p>Programmazione e gestione operativa di un robot collaborativo UR3: sviluppo di interfaccia, logica di controllo e applicazioni pratiche.</p>
+        <div class="tags">
+          <span class="tag">Universal Robots</span>
+          <span class="tag">Cobot</span>
+          <span class="tag">Automazione</span>
+        </div>
+        <a class="cta" href="mailto:paolo.colombo555@gmail.com?subject=Richiesta%20accesso%20-%20Progetto%20UR3">→ Richiedi accesso al repository</a>
+      </div>
+
+      <div class="card empty reveal">
+        <h3>+ Aggiungi un progetto</h3>
+        <p>Spazio pronto per il prossimo lavoro: tesi, progetto universitario o personale.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="competenze">
+  <div class="wrap">
+    <p class="figcap">Fig. 02 — Competenze</p>
+    <div class="skillgrid">
+      <div class="skillgroup">
+        <span class="label">Programmazione</span>
+        <div><span class="pill">C</span><span class="pill">Java</span><span class="pill">MATLAB</span></div>
+      </div>
+      <div class="skillgroup">
+        <span class="label">Software &amp; strumenti</span>
+        <div><span class="pill">Simulink</span><span class="pill">ABB RobotStudio</span><span class="pill">Git / GitHub</span><span class="pill">Pacchetto Office</span></div>
+      </div>
+      <div class="skillgroup">
+        <span class="label">Lingue</span>
+        <div><span class="pill">Italiano — madrelingua</span><span class="pill">Inglese</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="istruzione">
+  <div class="wrap">
+    <p class="figcap">Fig. 03 — Istruzione &amp; esperienze</p>
+    <div class="timeline">
+      <div class="titem reveal">
+        <div class="period">2024 — Presente</div>
+        <h4>Laurea magistrale in Ingegneria dell'Automazione Industriale</h4>
+        <p>Università degli studi di Brescia</p>
+      </div>
+      <div class="titem reveal">
+        <div class="period">2021 — 2024</div>
+        <h4>Laurea triennale in Ingegneria dell'Automazione Industriale</h4>
+        <p>Università degli studi di Brescia</p>
+      </div>
+      <div class="titem reveal">
+        <div class="period">2019</div>
+        <h4>Diploma in Elettronica ed Elettrotecnica</h4>
+        <p>Istituto Tecnico Superiore "L. Cerebotani"</p>
+      </div>
+      <div class="titem reveal">
+        <div class="period">Feb — Mar 2019</div>
+        <h4>Alternanza scuola-lavoro, A.T.E.SA Elettronica</h4>
+        <p>Diagnosi guasti, riparazione e collaudo di schede elettroniche per il trasporto pubblico.</p>
+      </div>
+      <div class="titem reveal">
+        <div class="period">Giu — Lug 2018</div>
+        <h4>Alternanza scuola-lavoro, B.M. Elettrotecnica</h4>
+        <p>Installazione e manutenzione di impianti elettrici civili e industriali.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contatti">
+  <div class="wrap">
+    <p class="figcap">Fig. 04 — Contatti</p>
+    <div class="contact-grid">
+      <a class="contact-btn primary" href="mailto:paolo.colombo555@gmail.com">✉ Scrivimi</a>
+      <a class="contact-btn" href="https://www.linkedin.com/in/paolo-colombo-a65609a8/" target="_blank" rel="noopener">in LinkedIn</a>
+      <a class="contact-btn" href="tel:+393395817250">☎ +39 339 581 7250</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">REV. 01 — AGGIORNATO 2026</div>
+</footer>
+
+<script>
+  const items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    items.forEach(el => io.observe(el));
+  } else {
+    items.forEach(el => el.classList.add('in'));
+  }
+</script>
 
 </body>
 </html>
-
