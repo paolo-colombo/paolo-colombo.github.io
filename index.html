@@ -3,348 +3,338 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paolo Colombo — Portfolio Ingegneria</title>
+<title>Paolo Colombo — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0F2A43;
-    --ink-2:#153E63;
-    --ink-3:#1C4E7A;
-    --line:#5C93B8;
-    --line-dim:#2E5E85;
-    --paper:#EAF3F8;
-    --paper-dim:#9FBBCE;
-    --accent:#F2A93B;
-    --accent-dim:#9A6E27;
-    --hazard:#E2574C;
-    --radius:2px;
-    --mono:'IBM Plex Mono', ui-monospace, monospace;
-    --sans:'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    --bg:#100C22;
+    --bg-2:#171331;
+    --card:#1C1740;
+    --card-hi:#241D4E;
+    --violet:#7C5CFC;
+    --violet-2:#A78BFA;
+    --violet-glow:rgba(124,92,252,0.35);
+    --ink:#F1EEFB;
+    --ink-dim:#9C93BE;
+    --line:rgba(241,238,251,0.09);
+    --sans:'Inter', ui-sans-serif, system-ui, sans-serif;
+    --display:'Sora', ui-sans-serif, system-ui, sans-serif;
   }
 
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
-    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
   }
 
   body{
     margin:0;
     background:
-      linear-gradient(var(--ink), var(--ink)),
-      repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(111,168,201,0.07) 31px, rgba(111,168,201,0.07) 32px),
-      repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(111,168,201,0.07) 31px, rgba(111,168,201,0.07) 32px);
-    color:var(--paper);
+      radial-gradient(ellipse 900px 500px at 78% 12%, rgba(124,92,252,0.16), transparent 60%),
+      var(--bg);
+    color:var(--ink);
     font-family:var(--sans);
-    line-height:1.55;
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
 
-  a{color:var(--accent); text-decoration:none;}
-  a:hover{text-decoration:underline;}
-  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+  a{color:inherit; text-decoration:none;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--violet-2); outline-offset:3px;}
 
-  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
 
   /* ---------- NAV ---------- */
-  nav{
-    position:sticky; top:0; z-index:20;
-    background:rgba(15,42,67,0.92);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line-dim);
+  nav{position:sticky; top:0; z-index:30; background:rgba(16,12,34,0.75); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  nav .inner{display:flex; align-items:center; justify-content:space-between; height:74px;}
+  .logo{font-family:var(--display); font-weight:700; font-size:18px; color:var(--ink);}
+  .navlinks{display:flex; align-items:center; gap:34px; font-size:14px; font-weight:500;}
+  .navlinks a{color:var(--ink-dim); transition:color .15s ease; position:relative;}
+  .navlinks a:hover, .navlinks a.active{color:var(--ink);}
+  .navlinks a.active::after{
+    content:""; position:absolute; left:0; right:0; bottom:-24px; height:2px; background:var(--violet);
   }
-  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
-  .brand{font-family:var(--mono); font-weight:600; font-size:13px; letter-spacing:0.08em; color:var(--paper);}
-  .brand span{color:var(--accent);}
-  .navlinks{display:flex; gap:22px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase;}
-  .navlinks a{color:var(--paper-dim);}
-  .navlinks a:hover{color:var(--accent);}
   @media (max-width:640px){ .navlinks{display:none;} }
 
-  /* ---------- HERO / TITLE BLOCK ---------- */
-  header.hero{padding:56px 0 32px;}
-  .eyebrow{
-    font-family:var(--mono); font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--line); margin-bottom:10px;
-  }
-  h1{
-    font-family:var(--mono); font-weight:700; font-size:clamp(32px,6vw,52px);
-    margin:0 0 8px; letter-spacing:-0.01em; color:var(--paper);
-  }
-  .role{font-size:17px; color:var(--paper-dim); max-width:56ch; margin:0 0 32px;}
+  /* ---------- HERO ---------- */
+  .hero{padding:min(11vh,100px) 0 70px; position:relative;}
+  .hero .inner{display:grid; grid-template-columns:56px 1fr auto; gap:40px; align-items:center;}
+  @media (max-width:860px){ .hero .inner{grid-template-columns:1fr; } .social{flex-direction:row; order:3;} }
 
-  .titleblock{
-    border:1px solid var(--line-dim);
-    display:grid;
-    grid-template-columns:1fr 1fr;
+  .social{display:flex; flex-direction:column; gap:20px;}
+  .social a{
+    width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line); border-radius:10px; color:var(--ink-dim);
+    transition:all .18s ease;
   }
-  .titleblock .cell{
-    padding:12px 16px;
-    border-right:1px solid var(--line-dim);
-    border-bottom:1px solid var(--line-dim);
-  }
-  .titleblock .cell:nth-child(2n){border-right:none;}
-  .titleblock .cell:nth-last-child(-n+2){border-bottom:none;}
-  .titleblock .label{
-    font-family:var(--mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
-    color:var(--line); display:block; margin-bottom:4px;
-  }
-  .titleblock .value{font-size:14px; color:var(--paper);}
-  .titleblock .value a{color:var(--paper);}
-  .titleblock .value a:hover{color:var(--accent);}
+  .social a:hover{color:var(--violet-2); border-color:var(--violet); transform:translateY(-2px);}
+  .social svg{width:17px; height:17px;}
 
-  /* ---------- SECTION HEADERS (figure-caption style) ---------- */
-  .figcap{
-    display:flex; align-items:center; gap:12px;
-    font-family:var(--mono); font-size:13px; letter-spacing:0.1em; text-transform:uppercase;
-    color:var(--line); margin:0 0 28px;
+  .hero-text .kicker{
+    font-family:var(--sans); font-weight:600; font-size:13px; letter-spacing:0.06em;
+    color:var(--violet-2); margin:0 0 16px;
   }
-  .figcap::before, .figcap::after{content:""; flex:1; height:1px; background:var(--line-dim); position:relative;}
-  .figcap::before{margin-right:2px;}
-  .figcap::after{margin-left:2px;}
+  .hero-text h1{
+    font-family:var(--display); font-weight:800; font-size:clamp(34px,5.4vw,54px);
+    line-height:1.08; margin:0 0 14px; color:var(--ink);
+  }
+  .hero-text .role{
+    font-family:var(--display); font-weight:600; font-size:clamp(18px,2.4vw,23px);
+    color:var(--violet-2); margin:0 0 18px;
+  }
+  .hero-text .role .cursor{display:inline-block; width:2px; height:1em; background:var(--violet-2); margin-left:3px; vertical-align:-3px; animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .hero-text p.desc{color:var(--ink-dim); max-width:44ch; font-size:15px; margin:0 0 30px;}
 
-  section{padding:56px 0;}
-  section + section{border-top:1px solid var(--line-dim);}
+  .btn{
+    display:inline-flex; align-items:center; gap:9px;
+    background:linear-gradient(135deg, var(--violet), #6845F0);
+    color:#fff; font-family:var(--display); font-weight:600; font-size:14.5px;
+    padding:14px 26px; border-radius:12px; border:none; cursor:pointer;
+    box-shadow:0 8px 24px var(--violet-glow);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px); box-shadow:0 12px 30px var(--violet-glow);}
+  .btn svg{width:15px; height:15px;}
 
-  .intro-text{max-width:62ch; color:var(--paper-dim); font-size:15px; margin-bottom:8px;}
+  /* ---------- BLOB ILLUSTRATION ---------- */
+  .blob-wrap{display:flex; justify-content:center; align-items:center;}
+  .blob-wrap svg{width:min(300px,70vw); height:auto;}
+
+  .scroll-hint{
+    display:flex; align-items:center; gap:10px; margin-top:56px;
+    font-size:12.5px; color:var(--ink-dim); letter-spacing:0.04em;
+  }
+  .scroll-hint svg{width:14px; height:14px; animation:bob 1.6s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+  /* ---------- SECTION HEADER ---------- */
+  .sec-head{margin:0 0 40px;}
+  .sec-head .tag{font-family:var(--display); font-weight:600; font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--violet-2); margin:0 0 10px;}
+  .sec-head h2{font-family:var(--display); font-weight:800; font-size:clamp(26px,4vw,34px); margin:0; color:var(--ink);}
+
+  section{padding:90px 0;}
+  section#progetti{border-top:1px solid var(--line);}
 
   /* ---------- PROJECT CARDS ---------- */
-  .projects{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:20px;}
+  .projects{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px;}
   .card{
-    border:1px solid var(--line-dim);
-    background:var(--ink-2);
-    padding:22px;
-    display:flex; flex-direction:column; gap:14px;
-    transition:border-color .15s ease, transform .15s ease;
+    background:var(--card); border:1px solid var(--line); border-radius:18px;
+    padding:26px; display:flex; flex-direction:column; gap:14px;
+    transition:transform .2s ease, border-color .2s ease, background .2s ease;
   }
-  .card:hover{border-color:var(--line); transform:translateY(-2px);}
-  .card-status{
-    font-family:var(--mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
-    color:var(--accent); align-self:flex-start;
-    border:1px solid var(--accent-dim); padding:3px 8px;
+  .card:hover{transform:translateY(-4px); border-color:var(--violet); background:var(--card-hi);}
+  .card-top{display:flex; align-items:center; justify-content:space-between;}
+  .status{
+    font-family:var(--sans); font-weight:600; font-size:11px; letter-spacing:0.04em;
+    color:var(--violet-2); background:rgba(124,92,252,0.14); padding:5px 11px; border-radius:20px;
   }
-  .card h3{margin:0; font-size:17px; font-family:var(--sans); font-weight:600; color:var(--paper);}
-  .card .meta{font-family:var(--mono); font-size:11px; color:var(--paper-dim); letter-spacing:0.03em;}
-  .card p{margin:0; font-size:14px; color:var(--paper-dim);}
-  .tags{display:flex; flex-wrap:wrap; gap:6px;}
-  .tag{
-    font-family:var(--mono); font-size:10.5px; letter-spacing:0.04em;
-    color:var(--line); border:1px solid var(--line-dim); padding:3px 8px;
-  }
+  .card h3{font-family:var(--display); font-weight:700; font-size:18.5px; margin:0; color:var(--ink);}
+  .card .meta{font-size:12px; color:var(--ink-dim);}
+  .card p{margin:0; font-size:14px; color:var(--ink-dim);}
+  .ptags{display:flex; flex-wrap:wrap; gap:8px;}
+  .ptags span{font-size:11.5px; color:var(--violet-2); background:rgba(124,92,252,0.1); padding:4px 10px; border-radius:8px;}
   .card .cta{
-    margin-top:auto; font-family:var(--mono); font-size:12px; letter-spacing:0.04em;
-    display:inline-flex; align-items:center; gap:6px; color:var(--accent);
+    margin-top:auto; display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--display); font-weight:600; font-size:13px; color:var(--ink);
   }
+  .card .cta svg{width:13px; height:13px; transition:transform .15s ease;}
+  .card:hover .cta svg{transform:translateX(3px);}
 
-  .card.empty{
-    border-style:dashed; align-items:flex-start; justify-content:center; min-height:180px;
-    color:var(--paper-dim);
-  }
-  .card.empty h3{color:var(--paper-dim); font-weight:500;}
-
-  /* ---------- SKILLS ---------- */
-  .skillgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:28px;}
-  .skillgroup .label{
-    font-family:var(--mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
-    color:var(--line); margin-bottom:10px; display:block;
-  }
-  .pill{display:inline-block; font-size:13px; color:var(--paper); background:var(--ink-2);
-    border:1px solid var(--line-dim); padding:5px 11px; margin:0 6px 6px 0;}
-
-  /* ---------- TIMELINE ---------- */
-  .timeline{border-left:1px solid var(--line-dim); margin-left:6px;}
-  .titem{position:relative; padding:0 0 26px 24px;}
-  .titem:last-child{padding-bottom:0;}
-  .titem::before{
-    content:""; position:absolute; left:-5px; top:4px;
-    width:9px; height:9px; background:var(--ink); border:2px solid var(--accent);
-    border-radius:50%;
-  }
-  .titem .period{font-family:var(--mono); font-size:11px; color:var(--line); letter-spacing:0.04em;}
-  .titem h4{margin:4px 0 4px; font-size:15.5px; color:var(--paper); font-weight:600;}
-  .titem p{margin:0; font-size:13.5px; color:var(--paper-dim);}
+  .card.empty{border-style:dashed; align-items:center; justify-content:center; text-align:center; min-height:180px;}
+  .card.empty h3{color:var(--ink-dim); font-weight:600;}
 
   /* ---------- CONTACT ---------- */
-  .contact-grid{display:flex; flex-wrap:wrap; gap:14px;}
-  .contact-btn{
-    font-family:var(--mono); font-size:13px; letter-spacing:0.03em;
-    border:1px solid var(--line); padding:12px 18px; color:var(--paper);
-    display:inline-flex; align-items:center; gap:8px;
+  .contact-panel{
+    background:linear-gradient(135deg, var(--card), var(--bg-2));
+    border:1px solid var(--line); border-radius:24px;
+    padding:60px 40px; text-align:center; position:relative; overflow:hidden;
   }
-  .contact-btn:hover{border-color:var(--accent); color:var(--accent); text-decoration:none;}
-  .contact-btn.primary{background:var(--accent); border-color:var(--accent); color:var(--ink); font-weight:600;}
-  .contact-btn.primary:hover{background:#ffbf5c; color:var(--ink);}
+  .contact-panel::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 50% 0%, rgba(124,92,252,0.25), transparent 60%);
+    pointer-events:none;
+  }
+  .contact-panel h2{font-family:var(--display); font-weight:800; font-size:clamp(24px,4vw,32px); margin:0 0 12px; position:relative;}
+  .contact-panel p{color:var(--ink-dim); margin:0 0 30px; position:relative;}
+  .contact-links{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; position:relative;}
+  .clink{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--line); padding:12px 20px; border-radius:12px;
+    font-family:var(--sans); font-weight:500; font-size:13.5px; color:var(--ink);
+    transition:all .15s ease;
+  }
+  .clink:hover{border-color:var(--violet); color:var(--violet-2); transform:translateY(-2px);}
+  .clink svg{width:15px; height:15px;}
 
-  footer{padding:32px 0 56px; font-family:var(--mono); font-size:11px; color:var(--line-dim); letter-spacing:0.05em;}
+  footer{padding:40px 0; text-align:center; font-size:12px; color:var(--ink-dim);}
 
-  .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="wrap">
-    <div class="brand">P.COLOMBO <span>// PORTFOLIO</span></div>
+  <div class="wrap inner">
+    <div class="logo">Paolo</div>
     <div class="navlinks">
+      <a href="#home" class="active">Home</a>
       <a href="#progetti">Progetti</a>
-      <a href="#competenze">Competenze</a>
-      <a href="#istruzione">Istruzione</a>
       <a href="#contatti">Contatti</a>
     </div>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="wrap">
-    <div class="eyebrow">Ingegneria dell'automazione industriale</div>
-    <h1>Paolo Colombo</h1>
-    <p class="role">Progetti in robotica collaborativa, motion planning e reinforcement learning. Questa pagina raccoglie il lavoro svolto durante tirocini e percorso universitario.</p>
+<section class="hero" id="home">
+  <div class="wrap inner">
+    <div class="social">
+      <a href="https://www.linkedin.com/in/paolo-colombo-a65609a8/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.1 1 2.48 1s2.5 1.12 2.5 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.66 4.78 6.12V23h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V23h-4V8z"/></svg>
+      </a>
+      <a href="mailto:paolo.colombo555@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+      </a>
+      <a href="tel:+393395817250" aria-label="Telefono">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+    </div>
 
-    <div class="titleblock">
-      <div class="cell">
-        <span class="label">Nome</span>
-        <span class="value">Paolo Colombo</span>
-      </div>
-      <div class="cell">
-        <span class="label">Ruolo</span>
-        <span class="value">Studente Ing. Automazione Industriale</span>
-      </div>
-      <div class="cell">
-        <span class="label">Sede</span>
-        <span class="value">Mazzano (Brescia), IT</span>
-      </div>
-      <div class="cell">
-        <span class="label">Contatto</span>
-        <span class="value"><a href="mailto:paolo.colombo555@gmail.com">paolo.colombo555@gmail.com</a></span>
-      </div>
+    <div class="hero-text">
+      <p class="kicker">Ingegneria dell'automazione industriale</p>
+      <h1>Ciao, sono Paolo</h1>
+      <p class="role">Robotica &amp; Automazione<span class="cursor"></span></p>
+      <p class="desc">Mi occupo di robotica collaborativa, motion planning e reinforcement learning. Questa pagina raccoglie una selezione dei miei progetti.</p>
+      <a class="btn" href="#progetti">
+        Vedi i progetti
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="blob-wrap">
+      <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M150 20c55 0 100 40 110 95 8 46-15 95-60 118-48 25-108 18-140-22C24 168 20 110 55 68 82 34 112 20 150 20Z" fill="url(#g1)"/>
+        <defs>
+          <linearGradient id="g1" x1="20" y1="20" x2="270" y2="260" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#7C5CFC"/>
+            <stop offset="1" stop-color="#4C2FCE"/>
+          </linearGradient>
+        </defs>
+        <!-- illustrazione braccio robotico stilizzato -->
+        <g stroke="#F1EEFB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.92">
+          <circle cx="150" cy="220" r="9" fill="#F1EEFB" stroke="none"/>
+          <path d="M150 220v-46"/>
+          <circle cx="150" cy="164" r="7" fill="#F1EEFB" stroke="none"/>
+          <path d="M150 164l42-30"/>
+          <circle cx="192" cy="134" r="7" fill="#F1EEFB" stroke="none"/>
+          <path d="M192 134l-14-46"/>
+          <circle cx="178" cy="88" r="8" fill="#F1EEFB" stroke="none"/>
+          <path d="M178 88l24-14"/>
+          <path d="M202 74l10 8-6 10"/>
+        </g>
+      </svg>
     </div>
   </div>
-</header>
+
+  <div class="wrap">
+    <div class="scroll-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Scorri per i progetti
+    </div>
+  </div>
+</section>
 
 <section id="progetti">
   <div class="wrap">
-    <p class="figcap">Fig. 01 — Progetti</p>
-    <p class="intro-text">Il codice sorgente di alcuni progetti è mantenuto in repository private. Chi è interessato può richiedere l'accesso direttamente dalla scheda del progetto.</p>
-    <br>
+    <div class="sec-head">
+      <p class="tag">Progetti</p>
+      <h2>Una selezione del mio lavoro</h2>
+    </div>
+
     <div class="projects">
 
       <div class="card reveal">
-        <span class="card-status">In corso</span>
-        <h3>Motion planning con Reinforcement Learning</h3>
-        <div class="meta">JRL CARI — Giugno 2026 → oggi</div>
-        <p>Applicazione di algoritmi di Reinforcement Learning per il controllo ottimo e il motion planning di sistemi robotici.</p>
-        <div class="tags">
-          <span class="tag">Reinforcement Learning</span>
-          <span class="tag">Robotica</span>
-          <span class="tag">Python</span>
+        <div class="card-top">
+          <span class="status">In corso</span>
         </div>
-        <a class="cta" href="mailto:paolo.colombo555@gmail.com?subject=Richiesta%20accesso%20-%20Progetto%20RL%20Motion%20Planning">→ Richiedi accesso al repository</a>
+        <h3>Motion planning con Reinforcement Learning</h3>
+        <div class="meta">JRL CARI — dal 2026</div>
+        <p>Applicazione di algoritmi di Reinforcement Learning per il controllo ottimo e il motion planning di sistemi robotici.</p>
+        <div class="ptags"><span>Reinforcement Learning</span><span>Robotica</span><span>Python</span></div>
+        <a class="cta" href="mailto:paolo.colombo555@gmail.com?subject=Richiesta%20accesso%20-%20Progetto%20RL%20Motion%20Planning">
+          Richiedi accesso
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
 
       <div class="card reveal">
-        <span class="card-status">Completato</span>
+        <div class="card-top">
+          <span class="status">Completato</span>
+        </div>
         <h3>Controllo del cobot Universal Robots UR3</h3>
         <div class="meta">Lab. Meccanica Applicata e Robotica Industriale — 2024</div>
-        <p>Programmazione e gestione operativa di un robot collaborativo UR3: sviluppo di interfaccia, logica di controllo e applicazioni pratiche.</p>
-        <div class="tags">
-          <span class="tag">Universal Robots</span>
-          <span class="tag">Cobot</span>
-          <span class="tag">Automazione</span>
-        </div>
-        <a class="cta" href="mailto:paolo.colombo555@gmail.com?subject=Richiesta%20accesso%20-%20Progetto%20UR3">→ Richiedi accesso al repository</a>
+        <p>Programmazione e gestione operativa di un robot collaborativo UR3: interfaccia, logica di controllo e applicazioni pratiche.</p>
+        <div class="ptags"><span>Universal Robots</span><span>Cobot</span><span>Automazione</span></div>
+        <a class="cta" href="mailto:paolo.colombo555@gmail.com?subject=Richiesta%20accesso%20-%20Progetto%20UR3">
+          Richiedi accesso
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
 
       <div class="card empty reveal">
-        <h3>+ Aggiungi un progetto</h3>
-        <p>Spazio pronto per il prossimo lavoro: tesi, progetto universitario o personale.</p>
+        <h3>+ Nuovo progetto</h3>
+        <p style="color:var(--ink-dim); font-size:13.5px;">Spazio pronto per il prossimo lavoro.</p>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<section id="competenze">
-  <div class="wrap">
-    <p class="figcap">Fig. 02 — Competenze</p>
-    <div class="skillgrid">
-      <div class="skillgroup">
-        <span class="label">Programmazione</span>
-        <div><span class="pill">C</span><span class="pill">Java</span><span class="pill">MATLAB</span></div>
-      </div>
-      <div class="skillgroup">
-        <span class="label">Software &amp; strumenti</span>
-        <div><span class="pill">Simulink</span><span class="pill">ABB RobotStudio</span><span class="pill">Git / GitHub</span><span class="pill">Pacchetto Office</span></div>
-      </div>
-      <div class="skillgroup">
-        <span class="label">Lingue</span>
-        <div><span class="pill">Italiano — madrelingua</span><span class="pill">Inglese</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="istruzione">
-  <div class="wrap">
-    <p class="figcap">Fig. 03 — Istruzione &amp; esperienze</p>
-    <div class="timeline">
-      <div class="titem reveal">
-        <div class="period">2024 — Presente</div>
-        <h4>Laurea magistrale in Ingegneria dell'Automazione Industriale</h4>
-        <p>Università degli studi di Brescia</p>
-      </div>
-      <div class="titem reveal">
-        <div class="period">2021 — 2024</div>
-        <h4>Laurea triennale in Ingegneria dell'Automazione Industriale</h4>
-        <p>Università degli studi di Brescia</p>
-      </div>
-      <div class="titem reveal">
-        <div class="period">2019</div>
-        <h4>Diploma in Elettronica ed Elettrotecnica</h4>
-        <p>Istituto Tecnico Superiore "L. Cerebotani"</p>
-      </div>
-      <div class="titem reveal">
-        <div class="period">Feb — Mar 2019</div>
-        <h4>Alternanza scuola-lavoro, A.T.E.SA Elettronica</h4>
-        <p>Diagnosi guasti, riparazione e collaudo di schede elettroniche per il trasporto pubblico.</p>
-      </div>
-      <div class="titem reveal">
-        <div class="period">Giu — Lug 2018</div>
-        <h4>Alternanza scuola-lavoro, B.M. Elettrotecnica</h4>
-        <p>Installazione e manutenzione di impianti elettrici civili e industriali.</p>
-      </div>
     </div>
   </div>
 </section>
 
 <section id="contatti">
   <div class="wrap">
-    <p class="figcap">Fig. 04 — Contatti</p>
-    <div class="contact-grid">
-      <a class="contact-btn primary" href="mailto:paolo.colombo555@gmail.com">✉ Scrivimi</a>
-      <a class="contact-btn" href="https://www.linkedin.com/in/paolo-colombo-a65609a8/" target="_blank" rel="noopener">in LinkedIn</a>
-      <a class="contact-btn" href="tel:+393395817250">☎ +39 339 581 7250</a>
+    <div class="contact-panel reveal">
+      <h2>Parliamone</h2>
+      <p>Sono disponibile per tirocini, collaborazioni e opportunità nel campo della robotica e dell'automazione.</p>
+      <div class="contact-links">
+        <a class="clink" href="mailto:paolo.colombo555@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+          paolo.colombo555@gmail.com
+        </a>
+        <a class="clink" href="https://www.linkedin.com/in/paolo-colombo-a65609a8/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.1 1 2.48 1s2.5 1.12 2.5 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.66 4.78 6.12V23h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V23h-4V8z"/></svg>
+          LinkedIn
+        </a>
+        <a class="clink" href="tel:+393395817250">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +39 339 581 7250
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="wrap">REV. 01 — AGGIORNATO 2026</div>
-</footer>
+<footer>Paolo Colombo — Brescia, Italia · 2026</footer>
 
 <script>
   const items = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12 });
     items.forEach(el => io.observe(el));
   } else {
     items.forEach(el => el.classList.add('in'));
   }
+
+  document.querySelectorAll('nav a').forEach(a=>{
+    a.addEventListener('click', ()=>{
+      document.querySelectorAll('nav a').forEach(x=>x.classList.remove('active'));
+      a.classList.add('active');
+    });
+  });
 </script>
 
 </body>
