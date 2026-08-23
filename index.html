@@ -62,18 +62,48 @@
   a:focus-visible, button:focus-visible{outline:2px solid var(--violet-2); outline-offset:3px;}
 
   .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  section{padding:90px 0;}
+  @media (max-width:860px){ section{padding:64px 0;} }
+  @media (max-width:640px){ section{padding:52px 0;} }
 
   /* ---------- NAV ---------- */
   nav{position:sticky; top:0; z-index:30; background:var(--nav-bg); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); transition:background .3s ease;}
   nav .inner{display:flex; align-items:center; justify-content:space-between; height:74px;}
   .logo{font-family:var(--display); font-weight:700; font-size:18px; color:var(--ink);}
   .navlinks{display:flex; align-items:center; gap:34px; font-size:14px; font-weight:500;}
+  .nav-right{display:flex; align-items:center; gap:22px;}
   .navlinks a{color:var(--ink-dim); transition:color .15s ease; position:relative;}
   .navlinks a:hover, .navlinks a.active{color:var(--ink);}
   .navlinks a.active::after{
     content:""; position:absolute; left:0; right:0; bottom:-24px; height:2px; background:var(--violet);
   }
-  @media (max-width:640px){ .navlinks a{display:none;} .navlinks a.contact-mobile{display:inline;} }
+  @media (max-width:640px){ .navlinks{display:none;} }
+
+  .nav-toggle{
+    display:none; width:38px; height:38px; align-items:center; justify-content:center;
+    border:1px solid var(--line); border-radius:10px; background:none; color:var(--ink-dim);
+    cursor:pointer; flex-shrink:0;
+  }
+  .nav-toggle svg{width:18px; height:18px;}
+  @media (max-width:640px){ .nav-toggle{display:flex;} }
+
+  .mobile-menu{
+    position:fixed; top:74px; left:0; right:0; z-index:29;
+    background:var(--nav-bg); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    display:flex; flex-direction:column; padding:8px 28px 20px;
+    opacity:0; transform:translateY(-8px); pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .mobile-menu.open{opacity:1; transform:translateY(0); pointer-events:auto;}
+  .mobile-menu a{
+    padding:14px 0; font-size:16px; font-weight:500; color:var(--ink-dim);
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-menu a:last-child{border-bottom:none;}
+  .mobile-menu a:hover, .mobile-menu a.active{color:var(--violet-2);}
 
   .theme-toggle{
     width:38px; height:38px; display:flex; align-items:center; justify-content:center;
@@ -89,7 +119,10 @@
   /* ---------- ABOUT ---------- */
   #about{border-top:1px solid var(--line);}
   .about-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:52px; align-items:center;}
-  @media (max-width:760px){ .about-grid{grid-template-columns:1fr;} }
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr;}
+    .about-visual{max-width:220px; margin:0 auto;}
+  }
   .about-visual{
     aspect-ratio:1; border-radius:24px;
     background:linear-gradient(150deg, var(--card), var(--bg-2));
@@ -164,7 +197,6 @@
   .sec-head .tag{font-family:var(--display); font-weight:600; font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--violet-2); margin:0 0 10px;}
   .sec-head h2{font-family:var(--display); font-weight:800; font-size:clamp(26px,4vw,34px); margin:0; color:var(--ink);}
 
-  section{padding:90px 0;}
   section#progetti{border-top:1px solid var(--line);}
 
   /* ---------- PROJECT CARDS ---------- */
@@ -214,6 +246,11 @@
     border:1px solid var(--line); border-radius:24px;
     padding:60px 40px; text-align:center; position:relative; overflow:hidden;
   }
+  @media (max-width:640px){
+    .contact-panel{padding:40px 22px; border-radius:18px;}
+    .contact-links{flex-direction:column; align-items:stretch;}
+    .clink{justify-content:center;}
+  }
   .contact-panel::before{
     content:""; position:absolute; inset:0;
     background:radial-gradient(circle at 50% 0%, rgba(124,92,252,0.25), transparent 60%);
@@ -242,16 +279,27 @@
 <nav>
   <div class="wrap inner">
     <div class="logo">Paolo</div>
-    <div class="navlinks">
-      <a href="#home" class="active">Home</a>
-      <a href="#about">About</a>
-      <a href="#progetti">Progetti</a>
-      <a href="#contatti">Contatti</a>
+    <div class="nav-right">
+      <div class="navlinks">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#progetti">Progetti</a>
+        <a href="#contatti">Contatti</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema chiaro/scuro">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Apri menu" aria-expanded="false">
+        <svg id="navToggleIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
     </div>
-    <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema chiaro/scuro">
-      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
-      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#progetti">Progetti</a>
+    <a href="#contatti">Contatti</a>
   </div>
 </nav>
 
@@ -459,11 +507,25 @@
     a.addEventListener('click', ()=>{
       document.querySelectorAll('nav a').forEach(x=>x.classList.remove('active'));
       a.classList.add('active');
+      mobileMenu.classList.remove('open');
+      navToggle.setAttribute('aria-expanded','false');
+      navToggleIcon.innerHTML = '<path d="M3 6h18M3 12h18M3 18h18"/>';
     });
   });
 
   document.getElementById('themeToggle').addEventListener('click', () => {
     document.documentElement.classList.toggle('light');
+  });
+
+  const navToggle = document.getElementById('navToggle');
+  const navToggleIcon = document.getElementById('navToggleIcon');
+  const mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    navToggleIcon.innerHTML = isOpen
+      ? '<path d="M6 6l12 12M18 6L6 18"/>'
+      : '<path d="M3 6h18M3 12h18M3 18h18"/>';
   });
 </script>
 
