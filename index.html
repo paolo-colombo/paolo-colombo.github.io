@@ -129,20 +129,19 @@
     aspect-ratio:1; 
     border-radius:12px;
     position:relative;
-    /* La foto è il contenitore, creiamo lo sfondo sfalsato con uno pseudoelemento */
   }
   .about-visual::after {
     content:""; 
     position:absolute; 
     inset:0;
-    border: 2px solid var(--violet-2); /* Bordo colorato che simula un'ombra stilistica */
+    border: 2px solid var(--violet-2);
     border-radius: 12px;
-    transform: translate(18px, 18px); /* Effetto doppio sfalsato */
+    transform: translate(18px, 18px); 
     z-index: -1;
     transition: transform 0.3s ease;
   }
   .about-visual:hover::after {
-    transform: translate(10px, 10px); /* L'ombra si avvicina al passaggio del mouse */
+    transform: translate(10px, 10px); 
   }
   .about-visual img {
     width: 100%; height: 100%; 
@@ -202,7 +201,7 @@
   .btn:hover{transform:translateY(-2px); box-shadow:0 12px 30px var(--violet-glow);}
   .btn svg{width:15px; height:15px;}
 
-  /* ---------- BLOB ILLUSTRATION (FORMA ASTRATTA E SPOSTAMENTO) ---------- */
+  /* ---------- BLOB ILLUSTRATION (FORMA ASTRATTA) ---------- */
   .avatar-frame{
     width:min(300px,70vw); aspect-ratio:1; 
     /* Forma blob curvilinea astratta */
@@ -211,13 +210,11 @@
     display:flex; align-items:center; justify-content:center;
     padding:10px; box-shadow:0 20px 60px rgba(124,92,252,0.35);
     flex-shrink:0;
-    transform: translateX(35px); /* Sposta l'immagine verso destra */
-    /* Animazione fluida del bordo */
+    /* Spostamento rimosso per mantenere un bilanciamento centrale */
     animation: morph 8s ease-in-out infinite;
   }
   .avatar-frame img{
     width:100%; height:100%; 
-    /* Stessa forma blob per l'immagine */
     border-radius: 60% 40% 50% 50% / 50% 50% 40% 60%; 
     object-fit:cover;
     display:block; background:var(--bg-2);
@@ -229,11 +226,6 @@
     0%, 100% { border-radius: 60% 40% 50% 50% / 50% 50% 40% 60%; }
     33% { border-radius: 70% 30% 50% 50% / 40% 60% 50% 50%; }
     66% { border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; }
-  }
-
-  @media (max-width:860px){
-    /* Su schermi piccoli riportiamo l'immagine al centro */
-    .avatar-frame{ transform: translateX(0); }
   }
 
   .blob-wrap{display:flex; justify-content:center; align-items:center;}
