@@ -121,23 +121,38 @@
   .about-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:52px; align-items:center;}
   @media (max-width:760px){
     .about-grid{grid-template-columns:1fr;}
-    .about-visual{max-width:220px; margin:0 auto;}
+    .about-visual{max-width:240px; margin:0 auto;}
   }
-  .about-visual{
-    aspect-ratio:1; border-radius:24px;
-    background:linear-gradient(150deg, var(--card), var(--bg-2));
-    border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center;
-    position:relative; overflow:hidden;
-  }
-  .about-visual::before{
-    content:""; position:absolute; inset:0; z-index:2;
-    background:radial-gradient(circle at 30% 20%, rgba(124,92,252,0.28), transparent 55%);
-    pointer-events: none;
-  }
-  .about-visual svg{width:52%; height:52%; position:relative; z-index:1;}
-  .about-visual img {width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1;}
   
+  /* STILE MODA / ASTRATTO PER LA FOTO ABOUT */
+  .about-visual{
+    aspect-ratio:1; 
+    border-radius:12px;
+    position:relative;
+    /* La foto è il contenitore, creiamo lo sfondo sfalsato con uno pseudoelemento */
+  }
+  .about-visual::after {
+    content:""; 
+    position:absolute; 
+    inset:0;
+    border: 2px solid var(--violet-2); /* Bordo colorato che simula un'ombra stilistica */
+    border-radius: 12px;
+    transform: translate(18px, 18px); /* Effetto doppio sfalsato */
+    z-index: -1;
+    transition: transform 0.3s ease;
+  }
+  .about-visual:hover::after {
+    transform: translate(10px, 10px); /* L'ombra si avvicina al passaggio del mouse */
+  }
+  .about-visual img {
+    width: 100%; height: 100%; 
+    object-fit: cover; 
+    border-radius: 12px;
+    position: relative; 
+    z-index: 1;
+    display: block;
+  }
+
   .about-text p{color:var(--ink-dim); font-size:15px; margin:0 0 16px; max-width:52ch;}
   .about-stats{display:flex; gap:32px; margin-top:28px; flex-wrap:wrap;}
   .about-stats div strong{display:block; font-family:var(--display); font-size:26px; color:var(--violet-2);}
@@ -187,18 +202,40 @@
   .btn:hover{transform:translateY(-2px); box-shadow:0 12px 30px var(--violet-glow);}
   .btn svg{width:15px; height:15px;}
 
-  /* ---------- BLOB ILLUSTRATION ---------- */
+  /* ---------- BLOB ILLUSTRATION (FORMA ASTRATTA E SPOSTAMENTO) ---------- */
   .avatar-frame{
-    width:min(300px,70vw); aspect-ratio:1; border-radius:50%;
+    width:min(300px,70vw); aspect-ratio:1; 
+    /* Forma blob curvilinea astratta */
+    border-radius: 60% 40% 50% 50% / 50% 50% 40% 60%;
     background:linear-gradient(135deg, #7C5CFC, #4C2FCE);
     display:flex; align-items:center; justify-content:center;
     padding:10px; box-shadow:0 20px 60px rgba(124,92,252,0.35);
     flex-shrink:0;
+    transform: translateX(35px); /* Sposta l'immagine verso destra */
+    /* Animazione fluida del bordo */
+    animation: morph 8s ease-in-out infinite;
   }
   .avatar-frame img{
-    width:100%; height:100%; border-radius:50%; object-fit:cover;
+    width:100%; height:100%; 
+    /* Stessa forma blob per l'immagine */
+    border-radius: 60% 40% 50% 50% / 50% 50% 40% 60%; 
+    object-fit:cover;
     display:block; background:var(--bg-2);
+    animation: morph 8s ease-in-out infinite;
   }
+  
+  /* Animazione che modella la forma fluida in un loop */
+  @keyframes morph {
+    0%, 100% { border-radius: 60% 40% 50% 50% / 50% 50% 40% 60%; }
+    33% { border-radius: 70% 30% 50% 50% / 40% 60% 50% 50%; }
+    66% { border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; }
+  }
+
+  @media (max-width:860px){
+    /* Su schermi piccoli riportiamo l'immagine al centro */
+    .avatar-frame{ transform: translateX(0); }
+  }
+
   .blob-wrap{display:flex; justify-content:center; align-items:center;}
 
   .scroll-hint{
@@ -345,7 +382,6 @@
 
     <div class="blob-wrap">
       <div class="avatar-frame">
-        <!-- IMMAGINE DELLA TESTA AGGIORNATA QUI -->
         <img src="foto_paolo_avatar.jpg" alt="Foto di Paolo Colombo">
       </div>
     </div>
@@ -367,7 +403,6 @@
     </div>
     <div class="about-grid">
       <div class="about-visual reveal">
-        <!-- IMMAGINE T-SHIRT BIANCA AGGIORNATA QUI (Rimosso il segnaposto SVG) -->
         <img src="foto_paolo_tshirt_bianca.jpeg" alt="Foto di Paolo Colombo">
       </div>
       <div class="about-text reveal">
