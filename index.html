@@ -73,7 +73,7 @@
   nav .inner{display:flex; align-items:center; justify-content:space-between; height:74px;}
   .logo{font-family:var(--display); font-weight:700; font-size:18px; color:var(--ink);}
   .navlinks{display:flex; align-items:center; gap:34px; font-size:14px; font-weight:500;}
-  .nav-right{display:flex; align-items:center; gap:22px;}
+  .nav-right{display:flex; align-items:center; gap:16px;} /* Modificato gap per fare spazio al nuovo bottone */
   .navlinks a{color:var(--ink-dim); transition:color .15s ease; position:relative;}
   .navlinks a:hover, .navlinks a.active{color:var(--ink);}
   .navlinks a.active::after{
@@ -105,16 +105,18 @@
   .mobile-menu a:last-child{border-bottom:none;}
   .mobile-menu a:hover, .mobile-menu a.active{color:var(--violet-2);}
 
-  .theme-toggle{
+  .theme-toggle, .lang-toggle{
     width:38px; height:38px; display:flex; align-items:center; justify-content:center;
     border:1px solid var(--line); border-radius:10px; background:none; color:var(--ink-dim);
     cursor:pointer; transition:all .18s ease; flex-shrink:0;
   }
-  .theme-toggle:hover{color:var(--violet-2); border-color:var(--violet);}
+  .theme-toggle:hover, .lang-toggle:hover{color:var(--violet-2); border-color:var(--violet);}
   .theme-toggle svg{width:17px; height:17px;}
   .theme-toggle .sun{display:none;}
   html.light .theme-toggle .moon{display:none;}
   html.light .theme-toggle .sun{display:block;}
+  
+  .lang-toggle { font-family:var(--sans); font-weight:600; font-size:13px; }
 
   /* ---------- ABOUT ---------- */
   #about{border-top:1px solid var(--line);}
@@ -204,13 +206,11 @@
   /* ---------- BLOB ILLUSTRATION (FORMA ASTRATTA) ---------- */
   .avatar-frame{
     width:min(300px,70vw); aspect-ratio:1; 
-    /* Forma blob curvilinea astratta */
     border-radius: 60% 40% 50% 50% / 50% 50% 40% 60%;
     background:linear-gradient(135deg, #7C5CFC, #4C2FCE);
     display:flex; align-items:center; justify-content:center;
     padding:10px; box-shadow:0 20px 60px rgba(124,92,252,0.35);
     flex-shrink:0;
-    /* Spostamento rimosso per mantenere un bilanciamento centrale */
     animation: morph 8s ease-in-out infinite;
   }
   .avatar-frame img{
@@ -221,7 +221,6 @@
     animation: morph 8s ease-in-out infinite;
   }
   
-  /* Animazione che modella la forma fluida in un loop */
   @keyframes morph {
     0%, 100% { border-radius: 60% 40% 50% 50% / 50% 50% 40% 60%; }
     33% { border-radius: 70% 30% 50% 50% / 40% 60% 50% 50%; }
@@ -326,11 +325,14 @@
     <div class="logo">Paolo</div>
     <div class="nav-right">
       <div class="navlinks">
-        <a href="#home" class="active">Home</a>
-        <a href="#about">About</a>
-        <a href="#progetti">Progetti</a>
-        <a href="#contatti">Contatti</a>
+        <a href="#home" class="active" data-i18n="nav_home">Home</a>
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#progetti" data-i18n="nav_projects">Progetti</a>
+        <a href="#contatti" data-i18n="nav_contact">Contatti</a>
       </div>
+      
+      <button class="lang-toggle" id="langToggle" aria-label="Cambia lingua">EN</button>
+      
       <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema chiaro/scuro">
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -341,20 +343,20 @@
     </div>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#progetti">Progetti</a>
-    <a href="#contatti">Contatti</a>
+    <a href="#home" data-i18n="nav_home">Home</a>
+    <a href="#about" data-i18n="nav_about">About</a>
+    <a href="#progetti" data-i18n="nav_projects">Progetti</a>
+    <a href="#contatti" data-i18n="nav_contact">Contatti</a>
   </div>
 </nav>
 
 <section class="hero" id="home">
   <div class="wrap inner">
     <div class="hero-text">
-      <p class="kicker">Ingegneria dell'automazione industriale</p>
-      <h1>Ciao, sono Paolo</h1>
-      <p class="role">Robotica &amp; Automazione<span class="cursor"></span></p>
-      <p class="desc">Mi occupo di robotica collaborativa, motion planning e reinforcement learning. Questa pagina raccoglie una selezione dei miei progetti.</p>
+      <p class="kicker" data-i18n="hero_kicker">Ingegneria dell'automazione industriale</p>
+      <h1 data-i18n="hero_title">Ciao, sono Paolo</h1>
+      <p class="role"><span data-i18n="hero_role">Robotica &amp; Automazione</span><span class="cursor"></span></p>
+      <p class="desc" data-i18n="hero_desc">Mi occupo di robotica collaborativa, motion planning e reinforcement learning. Questa pagina raccoglie una selezione dei miei progetti.</p>
       <div class="social">
         <a href="https://www.linkedin.com/in/paolo-colombo-a65609a8/" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.1 1 2.48 1s2.5 1.12 2.5 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.66 4.78 6.12V23h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V23h-4V8z"/></svg>
@@ -367,7 +369,7 @@
         </a>
       </div>
       <a class="btn" href="#progetti">
-        Vedi i progetti
+        <span data-i18n="hero_btn">Vedi i progetti</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
@@ -381,173 +383,3 @@
 
   <div class="wrap">
     <div class="scroll-hint">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-      Scorri per i progetti
-    </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="tag">About</p>
-      <h2>Chi sono</h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-visual reveal">
-        <img src="foto_paolo_tshirt_bianca_sfondo_grigio.jpg" alt="Foto di Paolo Colombo">
-      </div>
-      <div class="about-text reveal">
-        <p>Sono uno studente di Ingegneria Magistrale in Automazione Industriale all'Università degli studi di Brescia, appassionato di tecnologia e un lettore accanito. Ho un atteggiamento propositivo e motivato, e mi trovo a mio agio in ambienti stimolanti e dinamici.</p>
-        <p>Cerco una posizione competitiva per migliorare le mie competenze e contribuire a un'organizzazione professionale. Ho una grande passione per l'apprendimento di cose nuove che mi interessano e che possono aiutarmi a migliorare.</p>
-        <div class="about-stats">
-          <div><strong>2+</strong><span>anni di tirocini</span></div>
-          <div><strong>RL</strong><span>&amp; motion planning</span></div>
-          <div><strong>BS</strong><span>Brescia, Italia</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="progetti">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="tag">Progetti</p>
-      <h2>Una selezione del mio lavoro</h2>
-    </div>
-
-    <div class="projects">
-
-      <div class="card reveal">
-        <div class="project-img">
-          <svg viewBox="0 0 100 100" fill="none">
-            <circle cx="20" cy="30" r="6" stroke="#F1EEFB" stroke-width="3"/>
-            <circle cx="20" cy="70" r="6" stroke="#F1EEFB" stroke-width="3"/>
-            <circle cx="50" cy="50" r="7" fill="#A78BFA"/>
-            <circle cx="82" cy="25" r="6" stroke="#F1EEFB" stroke-width="3"/>
-            <circle cx="82" cy="50" r="6" stroke="#F1EEFB" stroke-width="3"/>
-            <circle cx="82" cy="75" r="6" stroke="#F1EEFB" stroke-width="3"/>
-            <path d="M25 33l20 14M25 67l20-14M56 50l20-22M56 50l20 0M56 50l20 22" stroke="#F1EEFB" stroke-width="2.4" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="card-top">
-          <span class="status">In corso</span>
-        </div>
-        <h3>Motion planning con Reinforcement Learning</h3>
-        <div class="meta">JRL CARI — dal 2026</div>
-        <p>Applicazione di algoritmi di Reinforcement Learning per il controllo ottimo e il motion planning di sistemi robotici.</p>
-        <div class="ptags"><span>Reinforcement Learning</span><span>Robotica</span><span>Python</span></div>
-        <a class="cta" href="#">
-          Vedi su GitHub
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.58.24 2.75.12 3.04.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.42.36.78 1.07.78 2.15 0 1.55-.02 2.8-.02 3.18 0 .3.21.66.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"/></svg>
-        </a>
-      </div>
-
-      <div class="card reveal">
-        <div class="project-img">
-          <svg viewBox="0 0 100 100" fill="none" stroke="#F1EEFB" stroke-width="3" stroke-linecap="round">
-            <circle cx="50" cy="82" r="6" fill="#F1EEFB" stroke="none"/>
-            <path d="M50 82V60"/>
-            <circle cx="50" cy="55" r="5" fill="#F1EEFB" stroke="none"/>
-            <path d="M50 55l24-16"/>
-            <circle cx="80" cy="34" r="5" fill="#F1EEFB" stroke="none"/>
-            <path d="M80 34l-6-24"/>
-            <circle cx="72" cy="10" r="6" fill="#A78BFA" stroke="none"/>
-            <path d="M86 20l8 6-5 8"/>
-          </svg>
-        </div>
-        <div class="card-top">
-          <span class="status">Completato</span>
-        </div>
-        <h3>Controllo del cobot Universal Robots UR3</h3>
-        <div class="meta">Lab. Meccanica Applicata e Robotica Industriale — 2024</div>
-        <p>Programmazione e gestione operativa di un robot collaborativo UR3: interfaccia, logica di controllo e applicazioni pratiche.</p>
-        <div class="ptags"><span>Universal Robots</span><span>Cobot</span><span>Automazione</span></div>
-        <a class="cta" href="#">
-          Vedi su GitHub
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.58.24 2.75.12 3.04.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.42.36.78 1.07.78 2.15 0 1.55-.02 2.8-.02 3.18 0 .3.21.66.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"/></svg>
-        </a>
-      </div>
-
-      <div class="card empty reveal">
-        <div class="project-img">
-          <svg viewBox="0 0 100 100" fill="none" stroke="#9C93BE" stroke-width="3" stroke-linecap="round">
-            <rect x="18" y="18" width="64" height="64" rx="8"/>
-            <path d="M50 34v32M34 50h32"/>
-          </svg>
-        </div>
-        <div style="padding-top:22px;">
-        <h3>+ Nuovo progetto</h3>
-        <p style="color:var(--ink-dim); font-size:13.5px;">Spazio pronto per il prossimo lavoro.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section id="contatti">
-  <div class="wrap">
-    <div class="contact-panel reveal">
-      <h2>Parliamone</h2>
-      <p>Sono disponibile per tirocini, collaborazioni e opportunità nel campo della robotica e dell'automazione.</p>
-      <div class="contact-links">
-        <a class="clink" href="mailto:paolo.colombo555@gmail.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
-          paolo.colombo555@gmail.com
-        </a>
-        <a class="clink" href="https://www.linkedin.com/in/paolo-colombo-a65609a8/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.1 1 2.48 1s2.5 1.12 2.5 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.66 4.78 6.12V23h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V23h-4V8z"/></svg>
-          LinkedIn
-        </a>
-        <a class="clink" href="https://github.com/paolo-colombo" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.58.24 2.75.12 3.04.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.42.36.78 1.07.78 2.15 0 1.55-.02 2.8-.02 3.18 0 .3.21.66.79.55A11.51 11.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z"/></svg>
-          github.com/paolo-colombo
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>Paolo Colombo — Brescia, Italia · 2026</footer>
-
-<script>
-  const items = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    items.forEach(el => io.observe(el));
-  } else {
-    items.forEach(el => el.classList.add('in'));
-  }
-
-  document.querySelectorAll('.navlinks a, .mobile-menu a').forEach(a=>{
-    a.addEventListener('click', ()=>{
-      document.querySelectorAll('.navlinks a, .mobile-menu a').forEach(x=>x.classList.remove('active'));
-      a.classList.add('active');
-      mobileMenu.classList.remove('open');
-      navToggle.setAttribute('aria-expanded','false');
-      navToggleIcon.innerHTML = '<path d="M3 6h18M3 12h18M3 18h18"/>';
-    });
-  });
-
-  document.getElementById('themeToggle').addEventListener('click', () => {
-    document.documentElement.classList.toggle('light');
-  });
-
-  const navToggle = document.getElementById('navToggle');
-  const navToggleIcon = document.getElementById('navToggleIcon');
-  const mobileMenu = document.getElementById('mobileMenu');
-  navToggle.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    navToggleIcon.innerHTML = isOpen
-      ? '<path d="M6 6l12 12M18 6L6 18"/>'
-      : '<path d="M3 6h18M3 12h18M3 18h18"/>';
-  });
-</script>
-
-</body>
-</html>
